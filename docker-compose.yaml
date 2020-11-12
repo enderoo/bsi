@@ -1,0 +1,39 @@
+version: "3.7"
+
+services:
+
+ DB:
+  image: mysql:5.7
+  container_name: Full2020-086311
+  restart: always
+  environment:
+   MYSQL_DATABASE: 'pfswcholab4'
+   MYSQL_USER: 'mkempny'
+   MYSQL_PASSWORD: 'mkempny'
+   MYSQL_ROOT_PASSWORD: 'mkempny'
+  ports:
+   - '3306:3306'
+  expose:
+   - '3306'
+  networks:
+   Bridge-Zadanie-1:
+    ipv4_address: 10.0.10.3
+
+ JA:
+  image: test1
+  container_name: JavaApp
+  networks:
+   - Bridge-Zadanie-1
+  depends_on:
+   - DB
+  stdin_open: true
+  tty: true
+
+networks:
+ Bridge-Zadanie-1:
+  driver: bridge
+  ipam:
+   config:
+    - subnet: 10.0.10.0/24
+
+  
